@@ -85,3 +85,15 @@ class ResumeSerializer(serializers.ModelSerializer):
         model = Resume
         fields = ('id', 'job_hunter_name', 'age', 'sex', 'education',
                   'telephone', 'intention', 'description', 'job_hunter_id')
+
+
+class CollectJobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CollectJob
+        fields = ('id', 'job_hunter_id', 'job_id')
+
+
+class DeliverSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Deliver
+        fields = ('id', 'job_hunter_id', 'job_id', 'resume_id', 'deliver_date')

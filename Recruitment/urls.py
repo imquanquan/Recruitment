@@ -16,6 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 
+"""
+admin：django 自带管理页面
+api-auth：认证相关地址
+rest-auth/registration：注册地址
+api：api 地址，引用 api app 的 urls.py
+"""
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_auth.urls')),

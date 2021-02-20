@@ -1,12 +1,8 @@
-from rest_framework import status
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
 
 from ..models import JobHunter
-from ..serializers import JobHunterSerializer
-from ..serializers import JobSerializer
+from ..serializers import JobHunterSerializer, JobSerializer
 
 
 class JobHunterList(generics.ListAPIView):
