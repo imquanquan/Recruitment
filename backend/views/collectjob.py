@@ -9,9 +9,9 @@ class CollectJobList(generics.ListCreateAPIView):
     queryset = CollectJob.objects.all()
     serializer_class = CollectJobSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['job_hunter_id','job_id']
+    filterset_fields = ['job_hunter_id', 'job_id']
 
 
-class CollectJobDetail(generics.RetrieveUpdateDestroyAPIView):
+class CollectJobDetail(generics.RetrieveDestroyAPIView):
     queryset = CollectJob.objects.all()
     serializer_class = CollectJobSerializer

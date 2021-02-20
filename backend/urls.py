@@ -6,7 +6,7 @@ from .views.company import CompanyList, CompanyDetail
 from .views.job import JobDetail, JobList, JobToJobHunterList
 from .views.resume import ResumeList, ResumeDetail
 from .views.collectjob import CollectJobDetail, CollectJobList
-
+from .views.deliver import DeliverDetail, DeliverList
 
 app_name = 'backend'
 
@@ -31,4 +31,6 @@ urlpatterns = [
     url(r'^resume/(?P<pk>[0-9]+)$', ResumeDetail.as_view()),
     url('^collectjob$', CollectJobList.as_view()),
     url(r'^collectjob/(?P<pk>[0-9]+)$', CollectJobDetail.as_view()),
+    url('^deliver$', DeliverList.as_view()),
+    url(r'^deliver/(?P<pk>[0-9]+)$', DeliverDetail.as_view()),
 ]

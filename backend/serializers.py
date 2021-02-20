@@ -70,8 +70,7 @@ class CompanySerializer(serializers.ModelSerializer):
 class JobHunterSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobHunter
-        fields = ('id', 'age', 'sex', 'jobhuntername', 'collect_jobs')
-        extra_kwargs = {'collect_jobs': {'required': False}}
+        fields = ('id', 'age', 'sex', 'jobhuntername')
 
 
 class JobSerializer(serializers.ModelSerializer):

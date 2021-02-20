@@ -38,7 +38,7 @@ class JobHunter(models.Model):
     sex = models.CharField(max_length=100)
     # 多对多关系
     collect_jobs = models.ManyToManyField(Job, through='CollectJob', related_name='collect_set')
-    # deliver_jobs = models.ManyToManyField(Job, through='Deliver', related_name='deliver_set')
+    deliver_jobs = models.ManyToManyField(Job, through='Deliver', related_name='deliver_set')
 
     def __str__(self):
         return self.job_hunter.email
@@ -65,7 +65,7 @@ class CollectJob(models.Model):
 
 class Deliver(models.Model):
     job_hunter_id = models.ForeignKey(JobHunter, on_delete=models.CASCADE)
-    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    job_id = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='deliver_job_set')
     resume_id = models.ForeignKey(Resume, on_delete=models.CASCADE)
     deliver_date = models.DateTimeField(auto_now_add=True, blank=True)
 

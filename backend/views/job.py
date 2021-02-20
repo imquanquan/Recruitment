@@ -25,4 +25,4 @@ class JobToJobHunterList(generics.ListAPIView):
     def get_queryset(self):
         print(self.kwargs['pk'])
         job = Job.objects.get(pk=self.kwargs['pk'])
-        return job.jobhunter_set.all()
+        return job.collect_set.all()
