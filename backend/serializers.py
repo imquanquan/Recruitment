@@ -7,12 +7,17 @@ from .models import *
 
 
 class JobHunterCustomRegistrationSerializer(RegisterSerializer):
+    # 引用 model 的字段
     job_hunter = serializers.PrimaryKeyRelatedField(read_only=True, )  # by default allow_null = False
     jobhuntername = serializers.CharField(required=True)
     age = serializers.IntegerField()
     sex = serializers.CharField()
 
     def get_cleaned_data(self):
+        """
+        重写 get_cleaned_data 方法，除了获取 user 自带字段还获取 jobhunter 的字段
+        :return:
+        """
         data = super(JobHunterCustomRegistrationSerializer, self).get_cleaned_data()
         extra_data = {
             'age': self.validated_data.get('age', ''),
@@ -24,6 +29,11 @@ class JobHunterCustomRegistrationSerializer(RegisterSerializer):
 
     @transaction.atomic
     def save(self, request):
+        """
+        重写 save 方法，除了更新 user 表，还更新 jobhunter 表
+        :param request:
+        :return:
+        """
         user = super(JobHunterCustomRegistrationSerializer, self).save(request)
         user.is_job_hunter = True
         user.save()

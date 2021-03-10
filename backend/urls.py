@@ -12,7 +12,7 @@ app_name = 'backend'
 
 
 urlpatterns = [
-    # 两类认证地址
+    # 两类注册地址
     path('registration/company', CompanyRegistrationView.as_view(), name='register-company'),
     path('registration/jobhunter', JobHunterRegistrationView.as_view(), name='register-jobhunter'),
     # 求职者相关操作地址
