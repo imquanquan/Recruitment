@@ -25,7 +25,7 @@ api：api 地址，引用 api app 的 urls.py
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-auth/', include('rest_auth.urls')),
+    path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
     path('api/', include('backend.urls', namespace='api')),
 ]
