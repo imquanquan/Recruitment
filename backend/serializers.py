@@ -71,22 +71,30 @@ class CompanyRegistrationSerializer(RegisterSerializer):
         return user
 
 
-class CompanySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Company
-        fields = ('id', 'address', 'companyname')
-
-
 class JobHunterSerializer(serializers.ModelSerializer):
     class Meta:
         model = JobHunter
         fields = ('id', 'age', 'sex', 'jobhuntername')
 
 
+class CompanySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Company
+        fields = ('id', 'address', 'companyname', 'scale', 'financing', 'logo')
+
+
 class JobSerializer(serializers.ModelSerializer):
+    company_detail = serializers.SerializerMethodField('get_company_detail')
+
+    def get_company_detail(self, obj):
+        company = Company.objects.get(pk=obj.company_id.id)
+        company_serializer = CompanySerializer(company)
+        return company_serializer.data
+
     class Meta:
         model = Job
-        fields = ('id', 'job_name', 'description', 'salary', 'education', 'company_id')
+        fields = ('id', 'job_name', 'description', 'salary', 'education',
+                  'welfare', 'experience', 'deliver_date', 'company_id', 'company_detail')
 
 
 class ResumeSerializer(serializers.ModelSerializer):

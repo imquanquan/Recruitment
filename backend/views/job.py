@@ -9,7 +9,7 @@ class JobList(generics.ListCreateAPIView):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['education', 'salary', 'description', 'job_name', 'company_id_id']
+    filterset_fields = ['education', 'salary', 'description', 'job_name', 'welfare', 'experience', 'company_id']
 
 
 class JobDetail(generics.RetrieveUpdateDestroyAPIView):
