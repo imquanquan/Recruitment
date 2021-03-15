@@ -4,6 +4,25 @@ from rest_framework.authtoken.models import Token
 from django.db import transaction
 
 from .models import *
+from .common import *
+
+
+class ChoiceField(serializers.ChoiceField):
+
+    def to_representation(self, obj):
+        if obj == '' and self.allow_blank:
+            return obj
+        return self._choices[obj]
+
+    def to_internal_value(self, data):
+        # To support inserts with the value
+        if data == '' and self.allow_blank:
+            return ''
+
+        for key, val in self._choices.items():
+            if key == data:
+                return key
+        self.fail('invalid_choice', input=data)
 
 
 class JobHunterCustomRegistrationSerializer(RegisterSerializer):
@@ -78,12 +97,17 @@ class JobHunterSerializer(serializers.ModelSerializer):
 
 
 class CompanySerializer(serializers.ModelSerializer):
+    scale = ChoiceField(COMPANY_SCALE_CHOICE)
+    financing = ChoiceField(COMPANY_FINANCING_CHOICE)
+
     class Meta:
         model = Company
         fields = ('id', 'address', 'companyname', 'scale', 'financing', 'logo')
 
 
 class JobSerializer(serializers.ModelSerializer):
+    salary = ChoiceField(JOB_SALARY_CHOICE)
+    experience = ChoiceField(JOB_EXPERIENCE_CHOICE)
     company_detail = serializers.SerializerMethodField('get_company_detail')
 
     def get_company_detail(self, obj):

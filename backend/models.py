@@ -5,6 +5,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
 
+from .common import *
+
 
 class User(AbstractUser):
   #Boolean fields to select the type of account.
@@ -18,25 +20,8 @@ class Company(models.Model):
     companyname = models.CharField(max_length=100, default='')
     address = models.CharField(max_length=100, default='')
     logo = models.TextField(default='../assets/scau.jpeg')
-    scale = models.CharField(max_length=50, default='0-15', choices=[
-        ('0-15', '少于 15 人'),
-        ('15-50', '15 - 50 人'),
-        ('50-150', '50 - 150 人'),
-        ('150-500', '150 - 500 人'),
-        ('500-2000', '500 - 2000 人'),
-        ('2000-', '2000 人以上')
-    ])
-    financing = models.CharField(max_length=50, default='none', choices=[
-        ('none', '未融资'),
-        ('angel', '天使轮'),
-        ('a', 'A 轮'),
-        ('b', 'B 轮'),
-        ('c', 'C 轮'),
-        ('d', 'D 轮以上'),
-        ('d', 'D 轮以上'),
-        ('listed', '上市公司'),
-        ('not_need', '不需要融资')
-    ])
+    scale = models.CharField(max_length=50, default='0-15', choices=COMPANY_SCALE_CHOICE)
+    financing = models.CharField(max_length=50, default='none', choices=COMPANY_FINANCING_CHOICE)
 
     def __str__(self):
         return self.company.email
@@ -47,23 +32,8 @@ class Job(models.Model):
     company_id = models.ForeignKey(Company, on_delete=models.CASCADE)
     description = models.TextField()
     welfare = models.CharField(max_length=50)
-    salary = models.CharField(max_length=50, default='0-2000', choices=[
-        ('0-2000', '2k 以下'),
-        ('2000-5000', '2k-5k'),
-        ('5000-10000', '5k-10k'),
-        ('10000-15000', '10k-15k'),
-        ('15000-25000', '15k-25k'),
-        ('25000-50000', '25k-50k'),
-        ('50000-', '50k 以上')
-    ])
-    experience = models.CharField(max_length=50, default='', choices=[
-        ('new', '在校/应届'),
-        ('0-3', '3 年以下'),
-        ('3-5', '3-5 年'),
-        ('5-10', '5-10 年'),
-        ('10-', '10 年以上'),
-        ('none', '无要求')
-    ])
+    salary = models.CharField(max_length=50, default='0-2000', choices=JOB_SALARY_CHOICE)
+    experience = models.CharField(max_length=50, default='', choices=JOB_EXPERIENCE_CHOICE)
     education = models.CharField(max_length=100)
     deliver_date = models.DateField(auto_now_add=True, blank=True)
 
