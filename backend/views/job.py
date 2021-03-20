@@ -1,11 +1,14 @@
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from ..models import Job
 from ..serializers import JobSerializer, JobHunterSerializer
+from ..permissions import IsOwnerOrReadOnly
 
 
 class JobList(generics.ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     queryset = Job.objects.all()
     serializer_class = JobSerializer
     filter_backends = [DjangoFilterBackend]
@@ -13,6 +16,7 @@ class JobList(generics.ListCreateAPIView):
 
 
 class JobDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Job.objects.all()
     serializer_class = JobSerializer
 

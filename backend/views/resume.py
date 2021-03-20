@@ -3,6 +3,7 @@ from rest_framework import generics
 
 from ..models import Resume
 from ..serializers import ResumeSerializer
+from ..permissions import IsOwnerOrReadOnly
 
 
 class ResumeList(generics.ListCreateAPIView):
@@ -14,5 +15,6 @@ class ResumeList(generics.ListCreateAPIView):
 
 
 class ResumeDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
     queryset = Resume.objects.all()
     serializer_class = ResumeSerializer
